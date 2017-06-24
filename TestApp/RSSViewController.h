@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  SecondViewController.h
 //  TestApp
 //
 //  Created by Andrey Kalinin on 6/24/17.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface RSSViewController : UIViewController
 
 
 @end
