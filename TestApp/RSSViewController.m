@@ -114,21 +114,14 @@ static NSUInteger const kReloadDataTime = 5;
 
 -(void)reloadBuisnessData
 {
-    [self showActivity];
-    [[NetworkManager sharedManager] getBusinessFeedWithResultBlock:^(NSError *error, NSArray *results)
+    [self reloadFeedWithType:FeedTypeBusiness resultBlock:^(NSError *error, NSArray *results)
      {
-         [self hideActivity];
 
          if (error == nil && results.count > 0)
          {
              self.businessData = results;
              [self reloadTable];
          }
-         else
-         {
-             NSLog(@"Error:%@", error.localizedDescription);
-         }
-
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReloadDataTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
              [self reloadBuisnessData];
          });
@@ -139,19 +132,12 @@ static NSUInteger const kReloadDataTime = 5;
 
 -(void)reloadEnvironmentData
 {
-    [self showActivity];
-    [[NetworkManager sharedManager] getEnvironmentFeedWithResultBlock:^(NSError *error, NSArray *results)
+    [self reloadFeedWithType:FeedTypeEnvironment resultBlock:^(NSError *error, NSArray *results)
      {
-         [self hideActivity];
-
          if (error == nil && results.count > 0)
          {
              self.enviromentData = results;
              [self reloadTable];
-         }
-         else
-         {
-             NSLog(@"Error:%@", error.localizedDescription);
          }
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReloadDataTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
              [self reloadEnvironmentData];
@@ -161,19 +147,12 @@ static NSUInteger const kReloadDataTime = 5;
 
 -(void)reloadEntertainmentData
 {
-    [self showActivity];
-    [[NetworkManager sharedManager] getEntertainmentFeedWithResultBlock:^(NSError *error, NSArray *results)
+    [self reloadFeedWithType:FeedTypeEntertainment resultBlock:^(NSError *error, NSArray *results)
      {
-         [self hideActivity];
-
          if (error == nil && results.count > 0)
          {
              self.entertainmentData = results;
              [self reloadTable];
-         }
-         else
-         {
-             NSLog(@"Error:%@", error.localizedDescription);
          }
          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReloadDataTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
              [self reloadEntertainmentData];
@@ -181,6 +160,30 @@ static NSUInteger const kReloadDataTime = 5;
 
      }];
 }
+
+-(void)reloadFeedWithType:(FeedType)type resultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
+{
+    NSParameterAssert(resultBlock);
+    [self showActivity];
+
+    [[NetworkManager sharedManager] getFeedWithType:type resultBlock:^(NSError *error, NSArray<RSSItem *> *results) {
+        [self hideActivity];
+        
+        if (error != nil)
+        {
+            NSLog(@"Error:%@", error.localizedDescription);
+        }
+        else if (results.count == 0)
+        {
+            NSLog(@"Empty RSS Feed");
+        }
+        else
+        {
+            resultBlock(error, results);
+        }
+    }];
+}
+
 
 -(void)showActivity
 {

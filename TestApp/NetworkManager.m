@@ -13,6 +13,10 @@
 @interface NetworkManager() <NSURLSessionDelegate>
 @end
 
+static NSString* const kBusinessURL      = @"http://feeds.reuters.com/reuters/businessNews";
+static NSString* const kEnvironmentURL   = @"http://feeds.reuters.com/reuters/environment";
+static NSString* const kEntertainmentURL = @"http://feeds.reuters.com/reuters/entertainment";
+
 @implementation NetworkManager
 {
    NSURLSessionConfiguration* _sessionConfiguration;
@@ -42,10 +46,38 @@
     return self;
 }
 
+-(void)getFeedWithType:(FeedType)type resultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
+{
+    NSParameterAssert(resultBlock);
+
+    NSString* urlStr = nil;
+    switch (type)
+    {
+        case FeedTypeBusiness:
+            urlStr = kBusinessURL;
+            break;
+        case FeedTypeEnvironment:
+            urlStr = kEnvironmentURL;
+            break;
+        case FeedTypeEntertainment:
+            urlStr = kEntertainmentURL;
+            break;
+
+        default:
+            break;
+    }
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
+        [self getFeed:urlStr resultBlock:^(NSError *error, NSArray<RSSItem *> *results) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 resultBlock(error, results);
+             });
+         }];
+    });
+}
 
 -(void)getEntertainmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
 {
-    NSParameterAssert(resultBlock);
     [self getFeed:@"http://feeds.reuters.com/reuters/entertainment" resultBlock:resultBlock];
 }
 
