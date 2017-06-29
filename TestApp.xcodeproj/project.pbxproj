@@ -9,11 +9,18 @@
 /* Begin PBXBuildFile section */
 		3D28AABD1EFE751D0067D0AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AABC1EFE751D0067D0AB /* main.m */; };
 		3D28AAC01EFE751D0067D0AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AABF1EFE751D0067D0AB /* AppDelegate.m */; };
-		3D28AAC31EFE751E0067D0AB /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAC21EFE751E0067D0AB /* FirstViewController.m */; };
-		3D28AAC61EFE751E0067D0AB /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAC51EFE751E0067D0AB /* SecondViewController.m */; };
+		3D28AAC31EFE751E0067D0AB /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAC21EFE751E0067D0AB /* MainViewController.m */; };
+		3D28AAC61EFE751E0067D0AB /* RSSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAC51EFE751E0067D0AB /* RSSViewController.m */; };
 		3D28AAC91EFE751E0067D0AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D28AAC71EFE751E0067D0AB /* Main.storyboard */; };
 		3D28AACB1EFE751E0067D0AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D28AACA1EFE751E0067D0AB /* Assets.xcassets */; };
 		3D28AACE1EFE751E0067D0AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D28AACC1EFE751E0067D0AB /* LaunchScreen.storyboard */; };
+		3D28AAD71EFE7AEE0067D0AB /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAD61EFE7AEE0067D0AB /* NetworkManager.m */; };
+		3D28AADB1EFE87D80067D0AB /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AADA1EFE87D80067D0AB /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3D28AADE1EFE87F00067D0AB /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D28AADD1EFE87F00067D0AB /* libxml2.tbd */; };
+		3D28AAE01EFE880F0067D0AB /* libxml2.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D28AADF1EFE880F0067D0AB /* libxml2.2.tbd */; };
+		3D28AAE31EFE8C4D0067D0AB /* GDataXMLElement+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAE21EFE8C4D0067D0AB /* GDataXMLElement+Ext.m */; };
+		3D28AAE61EFE91650067D0AB /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAE51EFE91650067D0AB /* RSSItem.m */; };
+		3D28AAE91EFEB1160067D0AB /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAE81EFEB1160067D0AB /* DetailsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +28,26 @@
 		3D28AABC1EFE751D0067D0AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3D28AABE1EFE751D0067D0AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D28AABF1EFE751D0067D0AB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3D28AAC11EFE751E0067D0AB /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		3D28AAC21EFE751E0067D0AB /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		3D28AAC41EFE751E0067D0AB /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		3D28AAC51EFE751E0067D0AB /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		3D28AAC11EFE751E0067D0AB /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		3D28AAC21EFE751E0067D0AB /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		3D28AAC41EFE751E0067D0AB /* RSSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSSViewController.h; sourceTree = "<group>"; };
+		3D28AAC51EFE751E0067D0AB /* RSSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSSViewController.m; sourceTree = "<group>"; };
 		3D28AAC81EFE751E0067D0AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3D28AACA1EFE751E0067D0AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D28AACD1EFE751E0067D0AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D28AACF1EFE751E0067D0AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D28AAD51EFE7AEE0067D0AB /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
+		3D28AAD61EFE7AEE0067D0AB /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
+		3D28AAD91EFE87D80067D0AB /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		3D28AADA1EFE87D80067D0AB /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		3D28AADD1EFE87F00067D0AB /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		3D28AADF1EFE880F0067D0AB /* libxml2.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.2.tbd; path = usr/lib/libxml2.2.tbd; sourceTree = SDKROOT; };
+		3D28AAE11EFE8C4D0067D0AB /* GDataXMLElement+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GDataXMLElement+Ext.h"; sourceTree = "<group>"; };
+		3D28AAE21EFE8C4D0067D0AB /* GDataXMLElement+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GDataXMLElement+Ext.m"; sourceTree = "<group>"; };
+		3D28AAE41EFE91650067D0AB /* RSSItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSItem.h; sourceTree = "<group>"; };
+		3D28AAE51EFE91650067D0AB /* RSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItem.m; sourceTree = "<group>"; };
+		3D28AAE71EFEB1160067D0AB /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		3D28AAE81EFEB1160067D0AB /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D28AAE01EFE880F0067D0AB /* libxml2.2.tbd in Frameworks */,
+				3D28AADE1EFE87F00067D0AB /* libxml2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,6 +68,7 @@
 			children = (
 				3D28AABA1EFE751D0067D0AB /* TestApp */,
 				3D28AAB91EFE751D0067D0AB /* Products */,
+				3D28AADC1EFE87F00067D0AB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -61,13 +83,20 @@
 		3D28AABA1EFE751D0067D0AB /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
+				3D28AAD51EFE7AEE0067D0AB /* NetworkManager.h */,
+				3D28AAD61EFE7AEE0067D0AB /* NetworkManager.m */,
 				3D28AABE1EFE751D0067D0AB /* AppDelegate.h */,
 				3D28AABF1EFE751D0067D0AB /* AppDelegate.m */,
-				3D28AAC11EFE751E0067D0AB /* FirstViewController.h */,
-				3D28AAC21EFE751E0067D0AB /* FirstViewController.m */,
-				3D28AAC41EFE751E0067D0AB /* SecondViewController.h */,
-				3D28AAC51EFE751E0067D0AB /* SecondViewController.m */,
+				3D28AAE41EFE91650067D0AB /* RSSItem.h */,
+				3D28AAE51EFE91650067D0AB /* RSSItem.m */,
+				3D28AAC11EFE751E0067D0AB /* MainViewController.h */,
+				3D28AAC21EFE751E0067D0AB /* MainViewController.m */,
+				3D28AAC41EFE751E0067D0AB /* RSSViewController.h */,
+				3D28AAC51EFE751E0067D0AB /* RSSViewController.m */,
+				3D28AAE71EFEB1160067D0AB /* DetailsViewController.h */,
+				3D28AAE81EFEB1160067D0AB /* DetailsViewController.m */,
 				3D28AAC71EFE751E0067D0AB /* Main.storyboard */,
+				3D28AAD81EFE87D80067D0AB /* Third party  */,
 				3D28AACA1EFE751E0067D0AB /* Assets.xcassets */,
 				3D28AACC1EFE751E0067D0AB /* LaunchScreen.storyboard */,
 				3D28AACF1EFE751E0067D0AB /* Info.plist */,
@@ -82,6 +111,27 @@
 				3D28AABC1EFE751D0067D0AB /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3D28AAD81EFE87D80067D0AB /* Third party  */ = {
+			isa = PBXGroup;
+			children = (
+				3D28AAD91EFE87D80067D0AB /* GDataXMLNode.h */,
+				3D28AADA1EFE87D80067D0AB /* GDataXMLNode.m */,
+				3D28AAE11EFE8C4D0067D0AB /* GDataXMLElement+Ext.h */,
+				3D28AAE21EFE8C4D0067D0AB /* GDataXMLElement+Ext.m */,
+			);
+			name = "Third party ";
+			path = XMLSupport;
+			sourceTree = "<group>";
+		};
+		3D28AADC1EFE87F00067D0AB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3D28AADF1EFE880F0067D0AB /* libxml2.2.tbd */,
+				3D28AADD1EFE87F00067D0AB /* libxml2.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,10 +206,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D28AAC61EFE751E0067D0AB /* SecondViewController.m in Sources */,
+				3D28AAC61EFE751E0067D0AB /* RSSViewController.m in Sources */,
 				3D28AAC01EFE751D0067D0AB /* AppDelegate.m in Sources */,
-				3D28AAC31EFE751E0067D0AB /* FirstViewController.m in Sources */,
+				3D28AAE31EFE8C4D0067D0AB /* GDataXMLElement+Ext.m in Sources */,
+				3D28AAE61EFE91650067D0AB /* RSSItem.m in Sources */,
+				3D28AAC31EFE751E0067D0AB /* MainViewController.m in Sources */,
+				3D28AAD71EFE7AEE0067D0AB /* NetworkManager.m in Sources */,
+				3D28AAE91EFEB1160067D0AB /* DetailsViewController.m in Sources */,
 				3D28AABD1EFE751D0067D0AB /* main.m in Sources */,
+				3D28AADB1EFE87D80067D0AB /* GDataXMLNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VKAZJN3DB9;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = TestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = synebo.io.TestApp;
@@ -292,6 +348,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = VKAZJN3DB9;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = TestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = synebo.io.TestApp;

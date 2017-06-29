@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class RSSItem;
+
 @interface NetworkManager : NSObject
+
++ (instancetype)sharedManager;
+
+-(void)getBusinessFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
+-(void)getEntertainmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
+-(void)getEnvironmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
 
 @end

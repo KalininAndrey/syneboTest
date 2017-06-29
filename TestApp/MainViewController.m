@@ -18,7 +18,7 @@
 
 @end
 
-@implementation FirstViewController
+@implementation MainViewController
 
 - (void)viewDidLoad
 {

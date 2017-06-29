@@ -10,4 +10,6 @@
 
 @interface DetailsViewController : UIViewController
 
+@property(nonatomic, strong)NSString* link;
+
 @end

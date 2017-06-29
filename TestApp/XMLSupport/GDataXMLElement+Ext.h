@@ -10,4 +10,7 @@
 
 @interface GDataXMLElement (Ext)
 
+- (GDataXMLElement *)elementForChild:(NSString *)childName;
+- (NSString *)valueForChild:(NSString *)childName;
+
 @end

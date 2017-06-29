@@ -9,6 +9,7 @@
 #import "RSSViewController.h"
 #import "NetworkManager.h"
 #import "RSSItem.h"
+#import "DetailsViewController.h"
 
 @interface RSSViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -28,13 +29,17 @@
 
 static NSUInteger const kReloadDataTime = 5;
 
-@implementation SecondViewController
+@implementation RSSViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.delegate = self;
+    self.tableView.delegate   = self;
     self.tableView.dataSource = self;
+    
+    self.businessData      = [NSArray new];
+    self.entertainmentData = [NSArray new];
+    self.enviromentData    = [NSArray new];
     
     [self loadData];
 }
@@ -47,7 +52,7 @@ static NSUInteger const kReloadDataTime = 5;
     [self reloadEntertainmentData];
 }
 
--(NSArray*)tableData
+-(NSArray<RSSItem*>*)tableData
 {
     if (self.segmentedControl.selectedSegmentIndex == 0)
     {
@@ -76,8 +81,10 @@ static NSUInteger const kReloadDataTime = 5;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FeedTableCell"];
+    
     RSSItem* item = self.tableData[indexPath.row];
-    cell.textLabel.text = item.title;
+    
+    cell.textLabel.text       = item.title;
     cell.detailTextLabel.text = item.date;
     return cell;
 }
@@ -90,6 +97,10 @@ static NSUInteger const kReloadDataTime = 5;
     
     NSDictionary *userInfo = @{@"titleKey" : item.title};
     [[NSNotificationCenter defaultCenter] postNotificationName: @"RSSSelected" object:nil userInfo:userInfo];
+    
+    DetailsViewController* detailsController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsViewController"];
+    detailsController.link = item.link;
+    [self presentViewController:detailsController animated:YES completion:nil];
 }
 
 #pragma mark Actions
@@ -108,10 +119,10 @@ static NSUInteger const kReloadDataTime = 5;
      {
          [self hideActivity];
 
-         if (error == nil)
+         if (error == nil && results.count > 0)
          {
              self.businessData = results;
-             [self.tableView reloadData];
+             [self reloadTable];
          }
          else
          {
@@ -133,10 +144,10 @@ static NSUInteger const kReloadDataTime = 5;
      {
          [self hideActivity];
 
-         if (error == nil)
+         if (error == nil && results.count > 0)
          {
              self.enviromentData = results;
-             [self.tableView reloadData];
+             [self reloadTable];
          }
          else
          {
@@ -155,10 +166,10 @@ static NSUInteger const kReloadDataTime = 5;
      {
          [self hideActivity];
 
-         if (error == nil)
+         if (error == nil && results.count > 0)
          {
              self.entertainmentData = results;
-             [self.tableView reloadData];
+             [self reloadTable];
          }
          else
          {
@@ -193,6 +204,14 @@ static NSUInteger const kReloadDataTime = 5;
         self.activity = nil;
     }
 
+}
+
+//Keep selection after reload
+-(void)reloadTable
+{
+    NSIndexPath* selectedRow = [self.tableView indexPathForSelectedRow];
+    [self.tableView reloadData];
+    [self.tableView selectRowAtIndexPath:selectedRow animated:YES scrollPosition:UITableViewScrollPositionNone];
 }
 
 @end
