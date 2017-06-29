@@ -10,8 +10,16 @@
 #import "NetworkManager.h"
 #import "RSSItem.h"
 #import "DetailsViewController.h"
+#import "FeedData.h"
 
-@interface RSSViewController ()<UITableViewDelegate, UITableViewDataSource>
+typedef NS_ENUM(NSUInteger, TableMode)
+{
+    TableModeBusiness,
+    TableModeEandE,
+};
+
+
+@interface RSSViewController ()<UITableViewDelegate, UITableViewDataSource, FeedDataDelegate>
 
 @property(nonatomic, weak)IBOutlet UISegmentedControl* segmentedControl;
 @property(nonatomic, weak)IBOutlet UITableView* tableView;
@@ -25,11 +33,19 @@
 @property(nonatomic, assign)NSUInteger activityCount;
 @property(nonatomic, strong)UIActivityIndicatorView* activity;
 
+@property(nonatomic, assign)TableMode tableMode;
+
+@property(nonatomic, strong)FeedData* businessFeeed;
+@property(nonatomic, strong)FeedData* entertainmentFeeed;
+@property(nonatomic, strong)FeedData* enviromentFeeed;
+
 @end
 
-static NSUInteger const kReloadDataTime = 5;
+
 
 @implementation RSSViewController
+{
+}
 
 - (void)viewDidLoad
 {
@@ -37,36 +53,72 @@ static NSUInteger const kReloadDataTime = 5;
     self.tableView.delegate   = self;
     self.tableView.dataSource = self;
     
+    self.tableMode = TableModeBusiness;
+    
+    self.businessFeeed      = [[FeedData alloc] initWithType:FeedTypeBusiness];
+    self.enviromentFeeed    = [[FeedData alloc] initWithType:FeedTypeEnvironment];
+    self.entertainmentFeeed = [[FeedData alloc] initWithType:FeedTypeEntertainment];
+
+    self.businessFeeed.delegate      = self;
+    self.enviromentFeeed.delegate    = self;
+    self.entertainmentFeeed.delegate = self;
+    
     self.businessData      = [NSArray new];
     self.entertainmentData = [NSArray new];
     self.enviromentData    = [NSArray new];
     
-    [self loadData];
 }
 
 
--(void)loadData
+-(void)viewWillAppear:(BOOL)animated
 {
-    [self reloadBuisnessData];
-    [self reloadEnvironmentData];
-    [self reloadEntertainmentData];
+    [super viewWillAppear:animated];
+    self.tableMode = self.tableMode;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.businessFeeed.refreshing      = NO;
+    self.entertainmentFeeed.refreshing = NO;
+    self.enviromentFeeed.refreshing    = NO;
 }
 
 -(NSArray<RSSItem*>*)tableData
 {
-    if (self.segmentedControl.selectedSegmentIndex == 0)
+    switch (self.tableMode)
     {
-        return self.businessData;
+        case TableModeBusiness:
+            return self.businessData;
+            break;
+        case TableModeEandE:
+            return [self.entertainmentData arrayByAddingObjectsFromArray:self.enviromentData];
+            break;
     }
-    else if (self.segmentedControl.selectedSegmentIndex == 1)
+}
+
+-(void)setTableMode:(TableMode)tableMode
+{
+    _tableMode = tableMode;
+    switch (tableMode)
     {
-        return [self.entertainmentData arrayByAddingObjectsFromArray:self.enviromentData];
+        case TableModeBusiness:
+            self.businessFeeed.refreshing = YES;
+            
+            self.entertainmentFeeed.refreshing = NO;
+            self.enviromentFeeed.refreshing    = NO;
+            break;
+            
+        case TableModeEandE:
+            self.businessFeeed.refreshing = NO;
+            
+            self.entertainmentFeeed.refreshing = YES;
+            self.enviromentFeeed.refreshing    = YES;
+
+            break;
     }
-    else
-    {
-        NSAssert(NO, @"Invalid segment control index");
-        return nil;
-    }
+    [self.tableView reloadData];
 }
 
 
@@ -103,87 +155,56 @@ static NSUInteger const kReloadDataTime = 5;
     [self presentViewController:detailsController animated:YES completion:nil];
 }
 
-#pragma mark Actions
+#pragma mark FeedDataDelegate
 
--(IBAction)segmentChanged:(id)sender
+-(void)feedHasNewData:(FeedData *)feed
 {
-    [self.tableView reloadData];
+    [self hideActivity];
+    if (feed.feed.count > 0)
+    {
+        [self setData:feed.feed forType:feed.type];
+    }
 }
 
-#pragma mark Data loading
-
--(void)reloadBuisnessData
+-(void)feedStartsLoading
 {
-    [self reloadFeedWithType:FeedTypeBusiness resultBlock:^(NSError *error, NSArray *results)
-     {
-
-         if (error == nil && results.count > 0)
-         {
-             self.businessData = results;
-             [self reloadTable];
-         }
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReloadDataTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             [self reloadBuisnessData];
-         });
-
-     }];
-}
-
-
--(void)reloadEnvironmentData
-{
-    [self reloadFeedWithType:FeedTypeEnvironment resultBlock:^(NSError *error, NSArray *results)
-     {
-         if (error == nil && results.count > 0)
-         {
-             self.enviromentData = results;
-             [self reloadTable];
-         }
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReloadDataTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             [self reloadEnvironmentData];
-         });
-     }];
-}
-
--(void)reloadEntertainmentData
-{
-    [self reloadFeedWithType:FeedTypeEntertainment resultBlock:^(NSError *error, NSArray *results)
-     {
-         if (error == nil && results.count > 0)
-         {
-             self.entertainmentData = results;
-             [self reloadTable];
-         }
-         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kReloadDataTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             [self reloadEntertainmentData];
-         });
-
-     }];
-}
-
--(void)reloadFeedWithType:(FeedType)type resultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
-{
-    NSParameterAssert(resultBlock);
     [self showActivity];
-
-    [[NetworkManager sharedManager] getFeedWithType:type resultBlock:^(NSError *error, NSArray<RSSItem *> *results) {
-        [self hideActivity];
-        
-        if (error != nil)
-        {
-            NSLog(@"Error:%@", error.localizedDescription);
-        }
-        else if (results.count == 0)
-        {
-            NSLog(@"Empty RSS Feed");
-        }
-        else
-        {
-            resultBlock(error, results);
-        }
-    }];
 }
 
+-(void)feedFailedLoading
+{
+    [self hideActivity];
+}
+
+
+-(void)setData:(NSArray*)data forType:(FeedType)type
+{
+    switch (type)
+    {
+        case FeedTypeBusiness:
+            self.businessData = data;
+            break;
+        case FeedTypeEnvironment:
+            self.enviromentData = data;
+            break;
+        case FeedTypeEntertainment:
+            self.entertainmentData = data;
+            break;
+    }
+    [self reloadTable];
+}
+
+
+//Keep selection after reload
+-(void)reloadTable
+{
+    NSIndexPath* selectedRow = [self.tableView indexPathForSelectedRow];
+    [self.tableView reloadData];
+    [self.tableView selectRowAtIndexPath:selectedRow animated:YES scrollPosition:UITableViewScrollPositionNone];
+}
+
+
+#pragma mark Activity
 
 -(void)showActivity
 {
@@ -209,12 +230,18 @@ static NSUInteger const kReloadDataTime = 5;
 
 }
 
-//Keep selection after reload
--(void)reloadTable
+#pragma mark Actions
+
+-(IBAction)segmentChanged:(id)sender
 {
-    NSIndexPath* selectedRow = [self.tableView indexPathForSelectedRow];
-    [self.tableView reloadData];
-    [self.tableView selectRowAtIndexPath:selectedRow animated:YES scrollPosition:UITableViewScrollPositionNone];
+    if (self.segmentedControl.selectedSegmentIndex == 0)
+    {
+        self.tableMode = TableModeBusiness;
+    }
+    else
+    {
+       self.tableMode = TableModeEandE;
+    }
 }
 
 @end

@@ -21,6 +21,7 @@
 		3D28AAE31EFE8C4D0067D0AB /* GDataXMLElement+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAE21EFE8C4D0067D0AB /* GDataXMLElement+Ext.m */; };
 		3D28AAE61EFE91650067D0AB /* RSSItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAE51EFE91650067D0AB /* RSSItem.m */; };
 		3D28AAE91EFEB1160067D0AB /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D28AAE81EFEB1160067D0AB /* DetailsViewController.m */; };
+		3D88C0451F051B3D00491E1B /* FeedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D88C0441F051B3D00491E1B /* FeedData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		3D28AAE51EFE91650067D0AB /* RSSItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSItem.m; sourceTree = "<group>"; };
 		3D28AAE71EFEB1160067D0AB /* DetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		3D28AAE81EFEB1160067D0AB /* DetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		3D88C0431F051B3D00491E1B /* FeedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedData.h; sourceTree = "<group>"; };
+		3D88C0441F051B3D00491E1B /* FeedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +86,12 @@
 		3D28AABA1EFE751D0067D0AB /* TestApp */ = {
 			isa = PBXGroup;
 			children = (
-				3D28AAD51EFE7AEE0067D0AB /* NetworkManager.h */,
-				3D28AAD61EFE7AEE0067D0AB /* NetworkManager.m */,
 				3D28AABE1EFE751D0067D0AB /* AppDelegate.h */,
 				3D28AABF1EFE751D0067D0AB /* AppDelegate.m */,
+				3D28AAD51EFE7AEE0067D0AB /* NetworkManager.h */,
+				3D28AAD61EFE7AEE0067D0AB /* NetworkManager.m */,
+				3D88C0431F051B3D00491E1B /* FeedData.h */,
+				3D88C0441F051B3D00491E1B /* FeedData.m */,
 				3D28AAE41EFE91650067D0AB /* RSSItem.h */,
 				3D28AAE51EFE91650067D0AB /* RSSItem.m */,
 				3D28AAC11EFE751E0067D0AB /* MainViewController.h */,
@@ -207,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D28AAC61EFE751E0067D0AB /* RSSViewController.m in Sources */,
+				3D88C0451F051B3D00491E1B /* FeedData.m in Sources */,
 				3D28AAC01EFE751D0067D0AB /* AppDelegate.m in Sources */,
 				3D28AAE31EFE8C4D0067D0AB /* GDataXMLElement+Ext.m in Sources */,
 				3D28AAE61EFE91650067D0AB /* RSSItem.m in Sources */,
@@ -375,6 +381,7 @@
 				3D28AAD41EFE751E0067D0AB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -24,8 +24,8 @@ typedef NS_ENUM(NSUInteger, FeedType)
 
 -(void)getFeedWithType:(FeedType)type resultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
 
--(void)getBusinessFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
--(void)getEntertainmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
--(void)getEnvironmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
+//-(void)getBusinessFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
+//-(void)getEntertainmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
+//-(void)getEnvironmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock;
 
 @end

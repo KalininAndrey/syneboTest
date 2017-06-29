@@ -49,7 +49,7 @@ static NSString* const kEntertainmentURL = @"http://feeds.reuters.com/reuters/en
 -(void)getFeedWithType:(FeedType)type resultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
 {
     NSParameterAssert(resultBlock);
-
+    
     NSString* urlStr = nil;
     switch (type)
     {
@@ -62,38 +62,14 @@ static NSString* const kEntertainmentURL = @"http://feeds.reuters.com/reuters/en
         case FeedTypeEntertainment:
             urlStr = kEntertainmentURL;
             break;
-
+            
         default:
             break;
     }
+    [self getFeed:urlStr resultBlock:^(NSError *error, NSArray<RSSItem *> *results) {
+        resultBlock(error, results);
+    }];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),^{
-        [self getFeed:urlStr resultBlock:^(NSError *error, NSArray<RSSItem *> *results) {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 resultBlock(error, results);
-             });
-         }];
-    });
-}
-
--(void)getEntertainmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
-{
-    [self getFeed:@"http://feeds.reuters.com/reuters/entertainment" resultBlock:resultBlock];
-}
-
-
--(void)getEnvironmentFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
-{
-    NSParameterAssert(resultBlock);
-    [self getFeed:@"http://feeds.reuters.com/reuters/environment" resultBlock:resultBlock];
-}
-
-
--(void)getBusinessFeedWithResultBlock:(void (^)(NSError* error, NSArray<RSSItem*>* results))resultBlock
-{
-    NSParameterAssert(resultBlock);
-
-    [self getFeed:@"http://feeds.reuters.com/reuters/businessNews" resultBlock:resultBlock];
 }
 
 #pragma mark private
@@ -103,12 +79,12 @@ static NSString* const kEntertainmentURL = @"http://feeds.reuters.com/reuters/en
     NSMutableURLRequest* request = [NSMutableURLRequest new];
     request.URL = [NSURL URLWithString:feedLink];
     
-//    static NSURLSessionDataTask* sessionTask = nil;
-//    [sessionTask cancel]; 
+    //    static NSURLSessionDataTask* sessionTask = nil;
+    //    [sessionTask cancel];
     
     NSURLSessionDataTask* sessionTask = [_session dataTaskWithRequest:request
-                              completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
-    {
+                                                    completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error)
+                                         {
         if (error)
         {
             resultBlock(error, nil);
